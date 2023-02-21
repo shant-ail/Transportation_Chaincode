@@ -155,7 +155,7 @@ describe('Fare Transfer Basic Tests', () => {
 
         it('should return success on UpdatePrimaryTransit', async () => {
             let fareTransfer = new FareTransfer();
-            await fareTransfer.EnrollCustomer (transactionContext, customer.ID, customer.FirstName, customer. LastName, customer.TransitId);
+            await fareTransfer.EnrollCustomer (transactionContext, customer.ID, customer.FirstName, customer.LastName, customer.TransitId);
 
             await fareTransfer.UpdatePrimaryTransit(transactionContext, 'customer1', 'MI');
             let ret = JSON.parse(await chaincodeStub.getState(customer.ID));
@@ -200,11 +200,12 @@ describe('Fare Transfer Basic Tests', () => {
 
         it('should return success on ChargeFare', async () => {
             let fareTransfer = new FareTransfer();
-            await fareTransfer.EnrollCustomer (transactionContext, customer.ID, customer.FirstName, customer. LastName, customer.TransitId);
+            await fareTransfer.EnrollCustomer(transactionContext, customer.ID, customer.FirstName, customer.LastName, customer.TransitId);
 
             const ret = await fareTransfer.ChargeFare(transactionContext, customer.ID, 'MI');
 
             expect(JSON.parse(ret.toString()).Amount).to.eql('3.50');
+            console.log('Test Case check ',JSON.parse(ret.toString()).Amount);
             const ret1 = await fareTransfer.ChargeFare(transactionContext, customer.ID, 'YRT');
             expect(JSON.parse(ret1.toString()).Amount).to.eql('1.25');
 
